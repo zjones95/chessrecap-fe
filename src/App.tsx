@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar"
 import { Route, Routes } from "react-router-dom"
 import Home from "./pages/Home"
 import Footer from "./components/Footer"
-import { useColorModeProvider } from "./contexts/ColorModeContext"
+import { useColorModeProvider } from "./hooks/useColorModeProvider"
 
 function App() {
     const { theme } = useColorModeProvider()

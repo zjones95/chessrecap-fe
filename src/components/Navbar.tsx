@@ -1,7 +1,7 @@
 import { Icon, IconButton, Stack, Switch } from "@mui/material"
 import Logo from "./Logo"
 import { IconMoonFilled, IconShare, IconSunFilled } from "@tabler/icons-react"
-import { useColorModeProvider } from "../contexts/ColorModeContext"
+import { useColorModeProvider } from "../hooks/useColorModeProvider"
 
 const ColorModeSwitch = ({
     colorMode,

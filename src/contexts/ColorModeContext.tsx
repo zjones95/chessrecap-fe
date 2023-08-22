@@ -1,6 +1,6 @@
-import { ReactNode, createContext, useContext, useState } from "react"
+import { ReactNode, createContext, useState } from "react"
 import { darkTheme, lightTheme } from "../theme"
-import { Theme } from "@mui/material"
+import { Theme, useMediaQuery } from "@mui/material"
 
 interface ColorModeValues {
     colorMode: "light" | "dark"
@@ -14,12 +14,13 @@ const DEFAULT_COLOR_MODE_VALUES: ColorModeValues = {
     toggleColorMode: () => {},
 }
 
-const ColorModeContext = createContext(DEFAULT_COLOR_MODE_VALUES)
-
-export const useColorModeProvider = () => useContext(ColorModeContext)
+export const ColorModeContext = createContext(DEFAULT_COLOR_MODE_VALUES)
 
 export const ColorModeProvider = ({ children }: { children: ReactNode }) => {
-    const [colorMode, setColorMode] = useState<"light" | "dark">("light")
+    const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)")
+    const [colorMode, setColorMode] = useState<"light" | "dark">(
+        prefersDarkMode ? "dark" : "light"
+    )
 
     return (
         <ColorModeContext.Provider
