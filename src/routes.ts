@@ -1,5 +1,5 @@
-export const ROUTES: { [key: string]: string | ((id: string) => string) } = {
+export const ROUTES = {
     HOME: "/",
     ABOUT: "/about",
-    reviewById: (id: string) => `/review/${id}`,
+    reviewByUsername: (username: string) => `/review/${username}`,
 }

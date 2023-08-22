@@ -1,5 +1,6 @@
 import { Stack, Typography } from "@mui/material"
 import { Link } from "react-router-dom"
+import { ROUTES } from "../routes"
 
 const Footer = () => {
     return (
@@ -9,11 +10,11 @@ const Footer = () => {
             justifyContent="center"
             alignItems="center"
             height={{ xs: 40, md: 56 }}
-            mt={1}
+            mt={2}
             width="100%"
         >
-            <Typography color="white">
-                2023 © <Link to="/">chessrecap.com</Link>
+            <Typography color="common.white">
+                2023 © <Link to={ROUTES.HOME}>chessrecap.com</Link>
             </Typography>
         </Stack>
     )

@@ -9,9 +9,22 @@ const typographyProps = {
 }
 
 const buttonOverrides = {
+    contained: {
+        boxShadow: "none",
+        "&:hover": {
+            boxShadow: "none",
+        },
+    },
     root: {
         height: "56px",
+        borderRadius: "8px",
+        textTransform: "none",
+        fontSize: "1rem",
     },
+}
+
+const commonColors = {
+    white: "#F6FEFC",
 }
 
 export const lightTheme = createTheme({
@@ -20,16 +33,24 @@ export const lightTheme = createTheme({
         primary: {
             main: "#0D5E47",
         },
-        text: {
-            primary: "#020D0A",
-        },
         secondary: {
             main: "#6DB723",
         },
+        info: {
+            main: "#B7A823",
+        },
+        error: {
+            main: "#B73E23",
+        },
+        text: {
+            primary: "#020D0A",
+        },
+
         background: {
             default: "#F6FEFC",
             paper: "#0D5E47",
         },
+        ...commonColors,
     },
     typography: {
         allVariants: {
@@ -43,6 +64,13 @@ export const lightTheme = createTheme({
                 ...buttonOverrides,
             },
         },
+        MuiOutlinedInput: {
+            styleOverrides: {
+                root: {
+                    borderRadius: "8px",
+                },
+            },
+        },
     },
 })
 
@@ -53,17 +81,24 @@ export const darkTheme = createTheme({
             main: "#0D5E47",
             dark: "#0F2F26",
         },
+        secondary: {
+            main: "#6DB723",
+        },
+        info: {
+            main: "#B7A823",
+        },
+        error: {
+            main: "#B73E23",
+        },
         text: {
             primary: "#F6FEFC",
             secondary: "#6DB723",
-        },
-        secondary: {
-            main: "#6DB723",
         },
         background: {
             default: "#021",
             paper: "#0F2F26",
         },
+        ...commonColors,
     },
     typography: {
         allVariants: {
@@ -74,10 +109,14 @@ export const darkTheme = createTheme({
     components: {
         MuiButton: {
             styleOverrides: {
-                contained: {
-                    boxShadow: "none",
-                },
                 ...buttonOverrides,
+            },
+        },
+        MuiOutlinedInput: {
+            styleOverrides: {
+                root: {
+                    borderRadius: "8px",
+                },
             },
         },
     },

@@ -44,7 +44,7 @@ const Navbar = () => {
                     colorMode={colorMode}
                     toggleColorMode={toggleColorMode}
                 />
-                <IconButton onClick={toggleColorMode}>
+                <IconButton>
                     <IconShare size={32} color="#0D5E47" />
                 </IconButton>
             </Stack>

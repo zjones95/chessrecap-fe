@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom"
 import Home from "./pages/Home"
 import Footer from "./components/Footer"
 import { useColorModeProvider } from "./hooks/useColorModeProvider"
+import Review from "./pages/Review"
 
 function App() {
     const { theme } = useColorModeProvider()
@@ -19,6 +20,7 @@ function App() {
                 <Navbar />
                 <Routes>
                     <Route path="/" element={<Home />} />
+                    <Route path="/review/:username" element={<Review />} />
                 </Routes>
                 <Footer />
             </Stack>
