@@ -1,11 +1,15 @@
-import { Box, Stack } from "@mui/material"
+import { Box, Stack, Typography } from "@mui/material"
 import { useParams } from "react-router-dom"
 import Processing from "../../components/Processing"
 import ReviewTitle from "./ReviewTitle"
+import LineChart from "../../components/Chart/LineChart"
+import { useColorModeProvider } from "../../hooks/useColorModeProvider"
 
 const Review = () => {
     const { username } = useParams()
     console.log({ username })
+
+    const { colorMode } = useColorModeProvider()
 
     const reportIsProcessing = false
 
@@ -16,13 +20,60 @@ const Review = () => {
     return (
         <Stack spacing={8} width="100%" my={8} alignItems="center">
             <ReviewTitle />
-            <Box
+            {/* <Box
                 width="100%"
                 maxWidth={1300}
                 height={400}
                 bgcolor="background.paper"
                 borderRadius={1}
-            />
+            /> */}
+            <Stack
+                maxWidth={1300}
+                width="100%"
+                minHeight={400}
+                bgcolor="background.paper"
+                borderRadius={1}
+                alignItems="center"
+                justifyContent="center"
+                direction={{ xs: "column", md: "row" }}
+                spacing={6}
+                p={4}
+            >
+                <Stack spacing={1.5}>
+                    <Typography variant="h3" fontSize="1.5rem" color="#C9F8EA">
+                        Average Rating in 2022
+                    </Typography>
+                    <Typography
+                        variant="h3"
+                        fontSize="5rem"
+                        color="common.white"
+                    >
+                        1632
+                    </Typography>
+                </Stack>
+                <LineChart
+                    data={[
+                        1182, 1232, 1211, 1312, 1346, 1534, 1422, 1189, 1433,
+                        1476, 1592, 1655,
+                    ]}
+                    colors={{
+                        gradient:
+                            colorMode === "light"
+                                ? {
+                                      top: "rgba(13, 94, 71, 0.4)",
+                                      bottom: "rgba(13, 94, 71, 0.05)",
+                                  }
+                                : {
+                                      top: "rgba(13, 94, 71, 0.2)",
+                                      bottom: "rgba(13, 94, 71, 0.05)",
+                                  },
+                        points: colorMode === "dark" ? "#F6FEFC" : "#0D5E47",
+                        line: colorMode === "dark" ? "#F6FEFC" : "#0D5E47",
+                    }}
+                    label="Rating"
+                    colorMode={colorMode}
+                />
+            </Stack>
             <Stack
                 direction="row"
                 width="100%"
