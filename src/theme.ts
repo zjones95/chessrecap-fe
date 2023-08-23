@@ -18,7 +18,6 @@ const buttonOverrides = {
     root: {
         height: "56px",
         borderRadius: "8px",
-        textTransform: "none",
         fontSize: "1rem",
     },
 }
@@ -32,6 +31,7 @@ export const lightTheme = createTheme({
         mode: "light",
         primary: {
             main: "#0D5E47",
+            dark: "#0F2F26",
         },
         secondary: {
             main: "#6DB723",
@@ -55,6 +55,9 @@ export const lightTheme = createTheme({
     typography: {
         allVariants: {
             color: "#020D0A",
+        },
+        button: {
+            textTransform: "none",
         },
         ...typographyProps,
     },
@@ -103,6 +106,9 @@ export const darkTheme = createTheme({
     typography: {
         allVariants: {
             color: "#F6FEFC",
+        },
+        button: {
+            textTransform: "none",
         },
         ...typographyProps,
     },

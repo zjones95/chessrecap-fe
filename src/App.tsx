@@ -5,7 +5,7 @@ import { Route, Routes } from "react-router-dom"
 import Home from "./pages/Home"
 import Footer from "./components/Footer"
 import { useColorModeProvider } from "./hooks/useColorModeProvider"
-import Review from "./pages/Review"
+import Review from "./pages/Review/Review"
 
 function App() {
     const { theme } = useColorModeProvider()
