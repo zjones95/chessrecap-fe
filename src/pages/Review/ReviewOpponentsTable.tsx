@@ -14,7 +14,7 @@ const Header = ({ headCells }: { headCells: Cell[] }) => {
             {headCells.map((headCell, i) => {
                 return (
                     <Typography
-                        bgcolor="primary.main"
+                        bgcolor="background.paper"
                         flex={headCell.flex}
                         fontSize={{ xs: "1rem", lg: "1.5rem" }}
                         whiteSpace="nowrap"
@@ -88,6 +88,18 @@ const ReviewOpponentsTable = () => {
 
     return (
         <Stack width="100%" maxWidth={1300} px={{ xs: 3, lg: 0 }}>
+            <Typography
+                variant="h2"
+                bgcolor="background.paper"
+                color="common.white"
+                width="fit-content"
+                py={1}
+                px={2}
+                borderRadius={1}
+                mb={2}
+            >
+                Most Played Opponents
+            </Typography>
             <Header headCells={isMobile ? MOBILE_HEAD_CELLS : HEAD_CELLS} />
             {(isMobile ? MOBILE_ROW_DATA : ROW_DATA).map((rowData) => (
                 <Row rowData={rowData} />

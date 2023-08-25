@@ -1,6 +1,5 @@
 import { ChartData, ChartOptions, Color, ScriptableContext } from "chart.js"
 import { ChartColors } from "../../pages/Review/review.types"
-import { ColorMode } from "../../types"
 
 export const getChartFills = (
     context: ScriptableContext<"line">,
@@ -103,4 +102,16 @@ export const buildDataset = (
             },
         ],
     }
+}
+
+export const getRandomPastelColor = () => {
+    return (
+        "hsl(" +
+        360 * Math.random() +
+        "," +
+        (25 + 70 * Math.random()) +
+        "%," +
+        (65 + 10 * Math.random()) +
+        "%)"
+    )
 }

@@ -1,4 +1,4 @@
-import { Box, Stack } from "@mui/material"
+import { Stack } from "@mui/material"
 import { useParams } from "react-router-dom"
 import Processing from "../../components/Processing"
 import ReviewTitle from "./ReviewTitle"
@@ -9,6 +9,7 @@ import ReviewRatingCards from "./ReviewRatingCards"
 import ReviewGameNumbers from "./ReviewGameNumbers"
 import ReviewStreaks from "./ReviewStreaks"
 import ReviewOpponentsTable from "./ReviewOpponentsTable"
+import ReviewOpeningChart from "./ReviewOpeningChart"
 
 const Review = () => {
     const { username } = useParams()
@@ -75,19 +76,7 @@ const Review = () => {
             <ReviewGameNumbers />
             <ReviewStreaks longestWinStreak={11} longestLossStreak={7} />
             <ReviewOpponentsTable />
-            {/* <Stack
-                height={560}
-                width="100%"
-                maxWidth={1300}
-                border="8px solid"
-                borderRadius={1}
-                justifyContent="center"
-                color="primary.main"
-                fontSize="3rem"
-            >
-                Most Played Opponents Table
-            </Stack> */}
-            <Box height={950} width="100%" bgcolor="background.paper" />
+            <ReviewOpeningChart />
             <Stack
                 height={560}
                 width="100%"
