@@ -2,12 +2,13 @@ import { Icon, IconButton, Stack, Switch } from "@mui/material"
 import Logo from "./Logo"
 import { IconMoonFilled, IconShare, IconSunFilled } from "@tabler/icons-react"
 import { useColorModeProvider } from "../hooks/useColorModeProvider"
+import { ColorMode } from "../types"
 
 const ColorModeSwitch = ({
     colorMode,
     toggleColorMode,
 }: {
-    colorMode: "light" | "dark"
+    colorMode: ColorMode
     toggleColorMode: () => void
 }) => {
     return (

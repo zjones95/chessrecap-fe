@@ -1,13 +1,6 @@
 import { ChartData, ChartOptions, Color, ScriptableContext } from "chart.js"
-
-export interface ChartColors {
-    gradient: {
-        top: string
-        bottom: string
-    }
-    points: string
-    line: string
-}
+import { ChartColors } from "../../pages/Review/review.types"
+import { ColorMode } from "../../types"
 
 export const getChartFills = (
     context: ScriptableContext<"line">,
@@ -40,34 +33,45 @@ export const getDefaultChartOptions = (): ChartOptions<"line"> => {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-            legend: {
-                position: "top",
-            },
             tooltip: {
-                mode: "nearest",
+                mode: "index",
+                displayColors: false,
                 axis: "x",
                 intersect: false,
+                caretPadding: 15,
                 yAlign: "bottom",
+                padding: 10,
+                titleMarginBottom: 10,
+                titleAlign: "center",
             },
         },
         scales: {
             y: {
                 ticks: {
                     maxTicksLimit: 5,
+                    font: {
+                        family: "Inter",
+                    },
                 },
                 grid: {
-                    tickColor: "#e0e0e0",
                     color: "#e0e0e0",
                     lineWidth: 2,
                     tickLength: 0,
                 },
             },
             x: {
-                grid: {
-                    display: false,
-                },
                 ticks: {
                     callback: (value, index) => MONTH_LABELS[index][0],
+                },
+                grid: {
+                    // "any" is here because ScriptableContext type defs are inaccurate
+                    // context.tick.value does exist in this situation -- this is to only give zeroLine a color
+                    color: ((context: ScriptableContext<"line">) =>
+                        (context as any).tick.value === 0
+                            ? "#e0e0e0"
+                            : ("transparent" as any)) as any,
+                    lineWidth: 2,
+                    tickLength: 0,
                 },
             },
         },
@@ -90,6 +94,9 @@ export const buildDataset = (
                 pointRadius: 6,
                 pointHoverRadius: 8,
                 spanGaps: true,
+                pointHoverBackgroundColor: chartColors.points,
+                pointHoverBorderColor: chartColors.points,
+                pointHitRadius: 60,
                 pointBackgroundColor: chartColors.points,
                 backgroundColor: (context: ScriptableContext<"line">) =>
                     getChartFills(context, chartColors.gradient),

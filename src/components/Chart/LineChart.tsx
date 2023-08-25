@@ -12,7 +12,9 @@ import {
     Colors,
 } from "chart.js"
 import { Stack } from "@mui/material"
-import { ChartColors, buildDataset, getDefaultChartOptions } from "./utils"
+import { buildDataset, getDefaultChartOptions } from "./utils"
+import { ColorMode } from "../../types"
+import { ChartColors } from "../../pages/Review/review.types"
 
 ChartJS.register(
     CategoryScale,
@@ -34,19 +36,17 @@ const LineChart = ({
     data: number[]
     colors: ChartColors
     label: string
-    colorMode: "light" | "dark"
+    colorMode: ColorMode
 }) => {
     const chartData = buildDataset(data, colors, label)
 
     return (
         <Stack
             sx={{
-                // bgcolor: (theme) => theme.palette.background.default,
                 bgcolor: colorMode === "light" ? "#F6FEFC" : "#021D15",
-                filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))",
             }}
             width="100%"
-            minWidth={500}
+            minWidth={300}
             maxWidth={700}
             height={336}
             p={3}
