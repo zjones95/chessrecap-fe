@@ -1,4 +1,5 @@
-import { Stack, Typography } from "@mui/material"
+import { Box, Stack, Typography } from "@mui/material"
+import { animated, useInView } from "@react-spring/web"
 import React from "react"
 
 interface ReviewRatingCardProps {
@@ -7,6 +8,7 @@ interface ReviewRatingCardProps {
     timeControl: string
     timeControlColor: React.CSSProperties["color"]
     rating: string | number
+    animationDelay?: number
     bordered?: boolean
 }
 
@@ -16,56 +18,82 @@ const ReviewRatingCard = ({
     timeControl,
     timeControlColor,
     rating,
+    animationDelay = 0,
     bordered = false,
 }: ReviewRatingCardProps) => {
+    const [ref, springs] = useInView(
+        () => ({
+            from: {
+                opacity: 0,
+                y: 100,
+            },
+            to: {
+                opacity: 1,
+                y: 0,
+                delay: animationDelay,
+            },
+        }),
+        { once: true }
+    )
+
     return (
-        <Stack
-            alignItems="center"
-            justifyContent="center"
+        <Box
+            component={animated.div}
+            ref={ref}
+            style={springs}
             flex={1}
-            minWidth={420}
+            minWidth={{ xs: "100%", lg: 420 }}
             height={400}
-            bgcolor={bordered ? "transparent" : backgroundColor}
-            borderRadius={1}
-            position="relative"
-            sx={{
-                border: bordered ? "4px solid" : "none",
-                borderColor: backgroundColor,
-            }}
         >
             <Stack
-                position="absolute"
                 alignItems="center"
                 justifyContent="center"
-                width={160}
+                bgcolor={bordered ? "transparent" : backgroundColor}
+                borderRadius={1}
+                height="100%"
+                position="relative"
                 sx={{
-                    transform: "rotate(30deg)",
-                    color: bordered
-                        ? "rgba(13, 94, 71, 0.20)"
-                        : "rgba(0, 0, 0, 0.1)",
-                    "& svg": { width: "300px", height: "300px" },
+                    border: bordered ? "4px solid" : "none",
+                    borderColor: backgroundColor,
                 }}
             >
-                {icon}
+                <Stack
+                    position="absolute"
+                    alignItems="center"
+                    justifyContent="center"
+                    width={160}
+                    sx={{
+                        transform: "rotate(30deg)",
+                        color: bordered
+                            ? "rgba(13, 94, 71, 0.20)"
+                            : "rgba(0, 0, 0, 0.1)",
+                        "& svg": {
+                            width: { xs: "250px", lg: "300px" },
+                            height: { xs: "250px", lg: "300px" },
+                        },
+                    }}
+                >
+                    {icon}
+                </Stack>
+                <Typography
+                    zIndex={3}
+                    variant="h3"
+                    fontSize="3rem"
+                    color={timeControlColor}
+                    textTransform="uppercase"
+                >
+                    {timeControl}
+                </Typography>
+                <Typography
+                    zIndex={3}
+                    variant="h3"
+                    fontSize="4rem"
+                    color={bordered ? "text.primary" : "white"}
+                >
+                    {rating}
+                </Typography>
             </Stack>
-            <Typography
-                zIndex={3}
-                variant="h3"
-                fontSize="3rem"
-                color={timeControlColor}
-                textTransform="uppercase"
-            >
-                {timeControl}
-            </Typography>
-            <Typography
-                zIndex={3}
-                variant="h3"
-                fontSize="4rem"
-                color={bordered ? "text.primary" : "white"}
-            >
-                {rating}
-            </Typography>
-        </Stack>
+        </Box>
     )
 }
 

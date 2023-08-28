@@ -20,7 +20,7 @@ export const MOBILE_ROW_DATA = [
         { label: "57", flex: 1, align: "center", color: "error.main" },
     ],
     [
-        { label: "cutieboy420", flex: 3 },
+        { label: "cutieboy", flex: 3 },
         { label: "67", flex: 2, align: "center" },
         { label: "10", flex: 1, align: "center", color: "secondary.main" },
         { label: "57", flex: 1, align: "center", color: "error.main" },
@@ -58,7 +58,7 @@ export const ROW_DATA = [
     ],
     [
         { label: "3.", flex: 1 },
-        { label: "cutieboy420", flex: 3 },
+        { label: "cutieboy", flex: 3 },
         { label: "1143", flex: 2, align: "center" },
         { label: "27", flex: 2, align: "center" },
         { label: "5", flex: 1, align: "center", color: "secondary.main" },

@@ -1,5 +1,6 @@
-import { Stack, Typography, useMediaQuery } from "@mui/material"
+import { Box, Stack, Typography, useMediaQuery } from "@mui/material"
 import { MOBILE_ROW_DATA, ROW_DATA } from "./sampleData"
+import { animated, useInView } from "@react-spring/web"
 
 interface Cell {
     label: string
@@ -14,6 +15,7 @@ const Header = ({ headCells }: { headCells: Cell[] }) => {
             {headCells.map((headCell, i) => {
                 return (
                     <Typography
+                        key={`opponents-head-cell-${headCell.label}`}
                         bgcolor="background.paper"
                         flex={headCell.flex}
                         fontSize={{ xs: "1rem", lg: "1.5rem" }}
@@ -39,39 +41,64 @@ const Header = ({ headCells }: { headCells: Cell[] }) => {
     )
 }
 
-const Row = ({ rowData }: { rowData: Cell[] }) => {
+const Row = ({
+    rowData,
+    animationDelay = 0,
+}: {
+    rowData: Cell[]
+    animationDelay?: number
+}) => {
+    const [ref, springs] = useInView(
+        () => ({
+            from: {
+                opacity: 0,
+                y: 100,
+            },
+            to: {
+                opacity: 1,
+                y: 0,
+                delay: animationDelay,
+            },
+        }),
+        { once: true }
+    )
+
     return (
-        <Stack direction="row" sx={{ textAlign: "left" }}>
-            {rowData.map((cell, i) => {
-                return (
-                    <Typography
-                        flex={cell.flex}
-                        fontSize={{ xs: "1.5rem", lg: "3rem" }}
-                        px={2}
-                        sx={{
-                            borderTopLeftRadius: i === 0 ? "4px" : "none",
-                            borderBottomLeftRadius: i === 0 ? "4px" : "none",
-                            borderTopRightRadius:
-                                i === rowData.length - 1 ? "4px" : "none",
-                            borderBottomRightRadius:
-                                i === rowData.length - 1 ? "4px" : "none",
-                            textAlign: cell.align ?? "left",
-                            color: cell.color ?? "text.primary",
-                        }}
-                    >
-                        {cell.label}
-                    </Typography>
-                )
-            })}
-        </Stack>
+        <Box component={animated.div} ref={ref} style={springs}>
+            <Stack direction="row" sx={{ textAlign: "left" }}>
+                {rowData.map((cell, i) => {
+                    return (
+                        <Typography
+                            key={`opponents-row-${i}-${cell.label}`}
+                            flex={cell.flex}
+                            fontSize={{ xs: "1rem", lg: "3rem" }}
+                            px={2}
+                            sx={{
+                                borderTopLeftRadius: i === 0 ? "4px" : "none",
+                                borderBottomLeftRadius:
+                                    i === 0 ? "4px" : "none",
+                                borderTopRightRadius:
+                                    i === rowData.length - 1 ? "4px" : "none",
+                                borderBottomRightRadius:
+                                    i === rowData.length - 1 ? "4px" : "none",
+                                textAlign: cell.align ?? "left",
+                                color: cell.color ?? "text.primary",
+                            }}
+                        >
+                            {cell.label}
+                        </Typography>
+                    )
+                })}
+            </Stack>
+        </Box>
     )
 }
 
 const MOBILE_HEAD_CELLS = [
     { label: "Opponent", flex: 3 },
-    { label: "Times Played", flex: 2, align: "center" },
-    { label: "Wins", flex: 1, align: "center", color: "secondary.main" },
-    { label: "Losses", flex: 1, align: "center", color: "error.main" },
+    { label: "# Played", flex: 2, align: "center" },
+    { label: "W", flex: 1, align: "center", color: "secondary.main" },
+    { label: "L", flex: 1, align: "center", color: "error.main" },
 ]
 
 const HEAD_CELLS = [
@@ -90,9 +117,10 @@ const ReviewOpponentsTable = () => {
         <Stack width="100%" maxWidth={1300} px={{ xs: 3, lg: 0 }}>
             <Typography
                 variant="h2"
+                fontSize={{ xs: "2rem", lg: "3rem" }}
                 bgcolor="background.paper"
                 color="common.white"
-                width="fit-content"
+                width={{ xs: "100%", lg: "fit-content" }}
                 py={1}
                 px={2}
                 borderRadius={1}
@@ -101,8 +129,12 @@ const ReviewOpponentsTable = () => {
                 Most Played Opponents
             </Typography>
             <Header headCells={isMobile ? MOBILE_HEAD_CELLS : HEAD_CELLS} />
-            {(isMobile ? MOBILE_ROW_DATA : ROW_DATA).map((rowData) => (
-                <Row rowData={rowData} />
+            {(isMobile ? MOBILE_ROW_DATA : ROW_DATA).map((rowData, i) => (
+                <Row
+                    key={`opponents-row-${i}`}
+                    animationDelay={(i + 1) * 100}
+                    rowData={rowData}
+                />
             ))}
         </Stack>
     )

@@ -10,6 +10,7 @@ import ReviewGameNumbers from "./ReviewGameNumbers"
 import ReviewStreaks from "./ReviewStreaks"
 import ReviewOpponentsTable from "./ReviewOpponentsTable"
 import ReviewOpeningChart from "./ReviewOpeningChart"
+import ReviewShare from "./ReviewShare"
 
 const Review = () => {
     const { username } = useParams()
@@ -24,7 +25,13 @@ const Review = () => {
     }
 
     return (
-        <Stack spacing={8} width="100%" my={8} alignItems="center">
+        <Stack
+            spacing={8}
+            width="100%"
+            my={8}
+            alignItems="center"
+            position="relative"
+        >
             <ReviewTitle />
             <ReviewLineChart
                 chartData={RATING_CHART_SAMPLE_DATA}
@@ -77,18 +84,7 @@ const Review = () => {
             <ReviewStreaks longestWinStreak={11} longestLossStreak={7} />
             <ReviewOpponentsTable />
             <ReviewOpeningChart />
-            <Stack
-                height={560}
-                width="100%"
-                maxWidth={1300}
-                border="8px solid"
-                borderRadius={1}
-                justifyContent="center"
-                color="primary.main"
-                fontSize="3rem"
-            >
-                Share Input
-            </Stack>
+            <ReviewShare />
         </Stack>
     )
 }

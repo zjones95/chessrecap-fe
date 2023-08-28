@@ -33,6 +33,7 @@ const ReviewRatingCards = ({
                 timeControl="bullet"
                 timeControlColor="#C9F8EA"
                 rating={bulletRating}
+                animationDelay={500}
             />
             <ReviewRatingCard
                 icon={<IconChessFilled />}
@@ -40,6 +41,7 @@ const ReviewRatingCards = ({
                 timeControl="blitz"
                 timeControlColor="#C9F8EA"
                 rating={blitzRating}
+                animationDelay={750}
             />
             <ReviewRatingCard
                 icon={<IconChessFilled />}
@@ -52,6 +54,7 @@ const ReviewRatingCards = ({
                         : "#C9F8EA"
                 }
                 rating={rapidRating}
+                animationDelay={1000}
             />
         </Stack>
     )

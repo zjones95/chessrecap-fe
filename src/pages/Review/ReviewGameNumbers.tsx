@@ -1,4 +1,5 @@
 import { Stack, Typography, TypographyProps } from "@mui/material"
+import { useInView, animated } from "@react-spring/web"
 
 interface GameNumberProps extends TypographyProps {
     number: number
@@ -9,12 +10,16 @@ const GameNumber = ({ number, timeControl, sx }: GameNumberProps) => {
     return (
         <Typography
             variant="body1"
-            fontSize="3rem"
+            fontSize={{ xs: "2rem", lg: "3rem" }}
             color="common.white"
             sx={{ py: 1, ...sx }}
         >
             {number}{" "}
-            <Typography component="span" color="secondary.main" fontSize="3rem">
+            <Typography
+                component="span"
+                color="secondary.main"
+                fontSize={{ xs: "2rem", lg: "3rem" }}
+            >
                 {timeControl}
             </Typography>{" "}
             games
@@ -22,7 +27,54 @@ const GameNumber = ({ number, timeControl, sx }: GameNumberProps) => {
     )
 }
 
+const GAME_NUMBER_TRANSITIONS = {
+    from: {
+        opacity: 0,
+        x: -100,
+    },
+    to: {
+        opacity: 1,
+        x: 0,
+    },
+}
+
 const ReviewGameNumbers = () => {
+    const [bulletRef, bulletSprings] = useInView(
+        () => ({
+            from: {
+                ...GAME_NUMBER_TRANSITIONS.from,
+            },
+            to: {
+                ...GAME_NUMBER_TRANSITIONS.to,
+            },
+        }),
+        { once: true }
+    )
+    const [blitzRef, blitzSprings] = useInView(
+        () => ({
+            from: {
+                ...GAME_NUMBER_TRANSITIONS.from,
+            },
+            to: {
+                ...GAME_NUMBER_TRANSITIONS.to,
+                delay: 500,
+            },
+        }),
+        { once: true }
+    )
+    const [rapidRef, rapidSprings] = useInView(
+        () => ({
+            from: {
+                ...GAME_NUMBER_TRANSITIONS.from,
+            },
+            to: {
+                ...GAME_NUMBER_TRANSITIONS.to,
+                delay: 1000,
+            },
+        }),
+        { once: true }
+    )
+
     return (
         <Stack
             width="100%"
@@ -37,27 +89,33 @@ const ReviewGameNumbers = () => {
             >
                 <Typography
                     variant="h2"
-                    fontSize="4rem"
+                    fontSize={{ xs: "3rem", lg: "4rem" }}
                     mb={2}
                     color="common.white"
                 >
                     You Played
                 </Typography>
-                <GameNumber
-                    number={211}
-                    timeControl="bullet"
-                    sx={{ mr: "auto" }}
-                />
-                <GameNumber
-                    number={134}
-                    timeControl="blitz"
-                    sx={{ m: "auto" }}
-                />
-                <GameNumber
-                    number={72}
-                    timeControl="rapid"
-                    sx={{ ml: "auto" }}
-                />
+                <animated.div
+                    ref={bulletRef}
+                    style={{ marginRight: "auto", ...bulletSprings }}
+                >
+                    <GameNumber number={211} timeControl="bullet" />
+                </animated.div>
+                <animated.div
+                    ref={blitzRef}
+                    style={{ margin: "auto", ...blitzSprings }}
+                >
+                    <GameNumber number={134} timeControl="blitz" />
+                </animated.div>
+                <animated.div
+                    ref={rapidRef}
+                    style={{
+                        marginLeft: "auto",
+                        ...rapidSprings,
+                    }}
+                >
+                    <GameNumber number={72} timeControl="rapid" />
+                </animated.div>
             </Stack>
         </Stack>
     )
