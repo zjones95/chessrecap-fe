@@ -1,6 +1,5 @@
 import { Stack, Typography } from "@mui/material"
 import OpeningChart from "@app/components/Chart/OpeningChart"
-import { animated, useInView } from "@react-spring/web"
 
 const SAMPLE_DATA = [
     { name: "Vienna Gambit", total: 10, wins: 5 },
@@ -15,23 +14,6 @@ const SAMPLE_DATA = [
 ]
 
 const ReviewOpeningChart = () => {
-    const [ref, springs] = useInView(
-        () => ({
-            from: {
-                opacity: 0,
-                y: 100,
-            },
-            to: {
-                opacity: 1,
-                y: 0,
-                delay: 500,
-            },
-        }),
-        {
-            once: true,
-        }
-    )
-
     return (
         <Stack
             width="100%"
@@ -53,9 +35,7 @@ const ReviewOpeningChart = () => {
                 <Typography variant="h2" fontSize="3rem" color="common.white">
                     Openings
                 </Typography>
-                <animated.div ref={ref} style={springs}>
-                    <OpeningChart data={SAMPLE_DATA} />
-                </animated.div>
+                <OpeningChart data={SAMPLE_DATA} />
             </Stack>
         </Stack>
     )
