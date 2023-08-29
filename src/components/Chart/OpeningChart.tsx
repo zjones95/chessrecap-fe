@@ -52,6 +52,7 @@ const Bar = ({ name, total, wins, animationDelay = 0 }: BarProps) => {
                     color={randomColor}
                     arrow={true}
                     placement="top"
+                    enterTouchDelay={0}
                     componentsProps={{
                         popper: {
                             sx: {

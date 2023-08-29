@@ -1,5 +1,5 @@
 import { ChartData, ChartOptions, Color, ScriptableContext } from "chart.js"
-import { ChartColors } from "../../pages/Review/review.types"
+import { ChartColors } from "@app/pages/Review/review.types"
 
 export const getChartFills = (
     context: ScriptableContext<"line">,

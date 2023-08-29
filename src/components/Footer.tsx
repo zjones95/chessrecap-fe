@@ -1,6 +1,6 @@
 import { Stack, Typography } from "@mui/material"
 import { Link } from "react-router-dom"
-import { ROUTES } from "../routes"
+import { ROUTES } from "@app/routes"
 
 const Footer = () => {
     return (

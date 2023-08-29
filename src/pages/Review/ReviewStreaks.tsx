@@ -55,7 +55,7 @@ const ReviewStreaks = ({
             to: {
                 opacity: 1,
                 y: 0,
-                delay: 500,
+                delay: 300,
             },
         }),
         { once: true }

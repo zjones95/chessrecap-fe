@@ -1,7 +1,7 @@
 import { Stack, SxProps, Typography } from "@mui/material"
-import LineChart from "../../components/Chart/LineChart"
+import LineChart from "@app/components/Chart/LineChart"
 import { ChartColors } from "./review.types"
-import { useColorModeProvider } from "../../hooks/useColorModeProvider"
+import { useColorModeProvider } from "@app/hooks/useColorModeProvider"
 import { useInView, animated } from "@react-spring/web"
 
 interface ReviewLineChartProps {

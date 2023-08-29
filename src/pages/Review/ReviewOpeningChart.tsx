@@ -1,5 +1,5 @@
 import { Stack, Typography } from "@mui/material"
-import OpeningChart from "../../components/Chart/OpeningChart"
+import OpeningChart from "@app/components/Chart/OpeningChart"
 import { animated, useInView } from "@react-spring/web"
 
 const SAMPLE_DATA = [

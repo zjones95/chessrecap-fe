@@ -13,8 +13,8 @@ import {
 } from "chart.js"
 import { Stack } from "@mui/material"
 import { buildDataset, getDefaultChartOptions } from "./utils"
-import { ColorMode } from "../../types"
-import { ChartColors } from "../../pages/Review/review.types"
+import { ColorMode } from "@app/types"
+import { ChartColors } from "@app/pages/Review/review.types"
 
 ChartJS.register(
     CategoryScale,

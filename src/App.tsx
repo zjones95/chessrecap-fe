@@ -2,10 +2,11 @@ import { Stack, ThemeProvider } from "@mui/material"
 import "./App.css"
 import Navbar from "./components/Navbar"
 import { Route, Routes } from "react-router-dom"
-import Home from "./pages/Home"
+import Home from "./pages/Home/Home"
 import Footer from "./components/Footer"
 import { useColorModeProvider } from "./hooks/useColorModeProvider"
 import Review from "./pages/Review/Review"
+import ErrorPage from "./pages/ErrorPage/ErrorPage"
 
 function App() {
     const { theme } = useColorModeProvider()
@@ -20,7 +21,8 @@ function App() {
                 <Navbar />
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/review/:username" element={<Review />} />
+                    <Route path="/r/:username" element={<Review />} />
+                    <Route path="*" element={<ErrorPage />} />
                 </Routes>
                 <Footer />
             </Stack>

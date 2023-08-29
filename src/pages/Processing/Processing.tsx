@@ -1,7 +1,7 @@
 import { Box, LinearProgress, Paper, Stack, Typography } from "@mui/material"
 import { IconCalendarDown, IconSettingsFilled } from "@tabler/icons-react"
-import { ProcessingState } from "../contexts/ReviewContext"
-import { useReviewProvider } from "../hooks/useReviewProvider"
+import { ProcessingState } from "@app/contexts/ReviewContext"
+import { useReviewProvider } from "@app/hooks/useReviewProvider"
 
 const monthNames = [
     "Jan",
@@ -67,7 +67,7 @@ const Processing = () => {
                 bgcolor="background.paper"
                 borderRadius={1}
                 py={5}
-                px={8}
+                px={{ xs: 4, lg: 8 }}
                 spacing={5}
                 alignItems="center"
             >
@@ -75,7 +75,7 @@ const Processing = () => {
                     <Typography
                         variant="h2"
                         mb="auto"
-                        fontSize="3rem"
+                        fontSize={{ xs: "2.5rem", lg: "3rem" }}
                         color="common.white"
                     >
                         Processing
@@ -95,7 +95,11 @@ const Processing = () => {
                         <IconSettingsFilled size={56} />
                     </Stack>
                 </Stack>
-                <Stack direction="row" spacing={5}>
+                <Stack
+                    direction="row"
+                    spacing={5}
+                    display={{ xs: "none", lg: "flex" }}
+                >
                     {months.map((processingState) => (
                         <Month
                             key={processingState.month}

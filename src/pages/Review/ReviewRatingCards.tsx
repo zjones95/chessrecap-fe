@@ -1,7 +1,7 @@
 import { Stack } from "@mui/material"
 import ReviewRatingCard from "./ReviewRatingCard"
 import { IconChessFilled } from "@tabler/icons-react"
-import { useColorModeProvider } from "../../hooks/useColorModeProvider"
+import { useColorModeProvider } from "@app/hooks/useColorModeProvider"
 
 interface ReviewRatingCardsProps {
     bulletRating: number

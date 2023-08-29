@@ -1,8 +1,8 @@
 import { Stack } from "@mui/material"
 import { useParams } from "react-router-dom"
-import Processing from "../../components/Processing"
+import Processing from "@app/pages/Processing/Processing"
 import ReviewTitle from "./ReviewTitle"
-import { useColorModeProvider } from "../../hooks/useColorModeProvider"
+import { useColorModeProvider } from "@app/hooks/useColorModeProvider"
 import ReviewLineChart from "./ReviewLineChart"
 import { HOURS_CHART_SAMPLE_DATA, RATING_CHART_SAMPLE_DATA } from "./sampleData"
 import ReviewRatingCards from "./ReviewRatingCards"
@@ -11,7 +11,7 @@ import ReviewStreaks from "./ReviewStreaks"
 import ReviewOpponentsTable from "./ReviewOpponentsTable"
 import ReviewOpeningChart from "./ReviewOpeningChart"
 import ReviewShare from "./ReviewShare"
-import { useReviewProvider } from "../../hooks/useReviewProvider"
+import { useReviewProvider } from "@app/hooks/useReviewProvider"
 
 const Review = () => {
     const { username } = useParams()

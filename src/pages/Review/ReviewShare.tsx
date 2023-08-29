@@ -50,6 +50,7 @@ const ReviewShare = () => {
                 title="Hi"
                 autoHideDuration={4000}
                 onClose={handleCopyClose}
+                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             >
                 <Alert severity="success">Copied to clipboard</Alert>
             </Snackbar>
@@ -65,9 +66,14 @@ const ReviewShare = () => {
                         Share with your friends
                     </Typography>
                 </animated.div>
-                <Stack direction="row" spacing={2} justifyContent="center">
+                <Stack
+                    direction="row"
+                    spacing={2}
+                    justifyContent="center"
+                    width="100%"
+                >
                     <TextField
-                        value={`https://chessrecap.com/s/${username}`}
+                        value={`https://chessrecap.com/r/${username}`}
                         inputProps={{
                             ref: copyInputRef,
                             onClick: (event) =>

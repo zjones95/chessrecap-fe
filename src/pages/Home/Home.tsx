@@ -1,36 +1,8 @@
 import { Button, Stack, TextField, Typography } from "@mui/material"
-import React, { SyntheticEvent, useState } from "react"
+import { SyntheticEvent, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { ROUTES } from "../routes"
-import { useSpring, animated } from "@react-spring/web"
-
-const TitleText = ({
-    children,
-    animationDelay = 0,
-}: {
-    children: React.ReactNode
-    animationDelay?: number
-}) => {
-    const [springs] = useSpring(() => ({
-        from: {
-            opacity: 0,
-            y: 100,
-        },
-        to: {
-            opacity: 1,
-            y: 0,
-        },
-        delay: animationDelay,
-    }))
-
-    return (
-        <animated.div style={springs}>
-            <Typography variant="h1" fontSize="5rem" color="primary.main">
-                {children}
-            </Typography>
-        </animated.div>
-    )
-}
+import { ROUTES } from "@app/routes"
+import { TitleText } from "@app/components/TitleText"
 
 const Home = () => {
     const [username, setUsername] = useState("")
@@ -50,11 +22,19 @@ const Home = () => {
     return (
         <Stack alignItems="center" justifyContent="center" margin="auto" p={1}>
             <Stack spacing={3} pb={4}>
-                <Stack direction="row" spacing={2.5} justifyContent="center">
+                <Stack
+                    direction="row"
+                    spacing={{ xs: 1.5, lg: 2.5 }}
+                    justifyContent="center"
+                >
                     <TitleText>Chess</TitleText>
-                    <TitleText animationDelay={500}>Recap</TitleText>
+                    <TitleText animationDelay={300}>Recap</TitleText>
                 </Stack>
-                <Typography variant="body1" px={2} fontSize="1.25rem">
+                <Typography
+                    variant="body1"
+                    px={2}
+                    fontSize={{ xs: "1rem", lg: "1.25rem" }}
+                >
                     Get your chess year-in-review and see how good (or bad) you
                     did...
                 </Typography>

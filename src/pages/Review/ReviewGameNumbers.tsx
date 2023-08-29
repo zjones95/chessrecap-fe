@@ -57,7 +57,7 @@ const ReviewGameNumbers = () => {
             },
             to: {
                 ...GAME_NUMBER_TRANSITIONS.to,
-                delay: 500,
+                delay: 300,
             },
         }),
         { once: true }
@@ -69,7 +69,7 @@ const ReviewGameNumbers = () => {
             },
             to: {
                 ...GAME_NUMBER_TRANSITIONS.to,
-                delay: 1000,
+                delay: 600,
             },
         }),
         { once: true }

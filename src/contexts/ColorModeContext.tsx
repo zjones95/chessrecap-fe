@@ -1,7 +1,7 @@
 import { ReactNode, createContext, useState } from "react"
-import { darkTheme, lightTheme } from "../theme"
+import { darkTheme, lightTheme } from "@app/theme"
 import { Theme, useMediaQuery } from "@mui/material"
-import { ColorMode } from "../types"
+import { ColorMode } from "@app/types"
 
 interface ColorModeValues {
     colorMode: ColorMode
