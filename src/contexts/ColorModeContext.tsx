@@ -43,9 +43,6 @@ export const ColorModeProvider = ({ children }: { children: ReactNode }) => {
         }
     }, [colorMode])
 
-    console.log(darkTheme.palette.background.paper)
-    console.log(darkTheme.palette.background.default)
-
     return (
         <ColorModeContext.Provider
             value={{
