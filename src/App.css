@@ -13,6 +13,16 @@ body,
     min-height: 100dvh;
 }
 
+@media not all and (min-resolution: 0.001dpcm) {
+    /* SAFARI MIN-HEIGHT FIX */
+    html,
+    body,
+    #root,
+    #root > div {
+        min-height: 100vh;
+    }
+}
+
 * {
     box-sizing: border-box;
 }
