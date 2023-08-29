@@ -1,6 +1,6 @@
-import { Icon, IconButton, Stack, Switch } from "@mui/material"
+import { Icon, Stack, Switch } from "@mui/material"
 import Logo from "./Logo"
-import { IconMoonFilled, IconShare, IconSunFilled } from "@tabler/icons-react"
+import { IconMoonFilled, IconSunFilled } from "@tabler/icons-react"
 import { useColorModeProvider } from "@app/hooks/useColorModeProvider"
 import { ColorMode } from "@app/types"
 
