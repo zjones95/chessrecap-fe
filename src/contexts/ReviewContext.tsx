@@ -47,7 +47,7 @@ export const ReviewProvider = ({ children }: { children: ReactNode }) => {
                     return newMonths
                 })
             }
-        }, 1000)
+        }, 100)
 
         if (monthsProcessed === 12) {
             setTimeout(() => {
