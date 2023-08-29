@@ -11,16 +11,16 @@ import ReviewStreaks from "./ReviewStreaks"
 import ReviewOpponentsTable from "./ReviewOpponentsTable"
 import ReviewOpeningChart from "./ReviewOpeningChart"
 import ReviewShare from "./ReviewShare"
+import { useReviewProvider } from "../../hooks/useReviewProvider"
 
 const Review = () => {
     const { username } = useParams()
     console.log({ username })
 
     const { colorMode } = useColorModeProvider()
+    const { reportProcessed } = useReviewProvider()
 
-    const reportIsProcessing = false
-
-    if (reportIsProcessing) {
+    if (!reportProcessed) {
         return <Processing />
     }
 
