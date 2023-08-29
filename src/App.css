@@ -1,7 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
 html {
-    background-color: #021d15;
+    background-color: #f6fefc;
+}
+
+@media (prefers-color-scheme: dark) {
+    html {
+        background-color: #021d15;
+    }
 }
 
 html,

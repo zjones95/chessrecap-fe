@@ -43,7 +43,7 @@ const Bar = ({ name, total, wins, animationDelay = 0 }: BarProps) => {
                 position="relative"
                 color={randomColor}
                 alignItems="center"
-                justifyContent="end"
+                justifyContent="flex-end"
                 spacing={1}
             >
                 <Typography color={randomColor}>{total}</Typography>

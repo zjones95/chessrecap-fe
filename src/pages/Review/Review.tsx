@@ -1,5 +1,4 @@
 import { Stack } from "@mui/material"
-import { useParams } from "react-router-dom"
 import Processing from "@app/pages/Processing/Processing"
 import ReviewTitle from "./ReviewTitle"
 import { useColorModeProvider } from "@app/hooks/useColorModeProvider"
@@ -14,9 +13,6 @@ import ReviewShare from "./ReviewShare"
 import { useReviewProvider } from "@app/hooks/useReviewProvider"
 
 const Review = () => {
-    const { username } = useParams()
-    console.log({ username })
-
     const { colorMode } = useColorModeProvider()
     const { reportProcessed } = useReviewProvider()
 

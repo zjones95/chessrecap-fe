@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState } from "react"
+import { ReactNode, createContext, useEffect, useState } from "react"
 import { darkTheme, lightTheme } from "@app/theme"
 import { Theme, useMediaQuery } from "@mui/material"
 import { ColorMode } from "@app/types"
@@ -33,7 +33,18 @@ export const ColorModeProvider = ({ children }: { children: ReactNode }) => {
         localStorage.setItem("colorMode", newColorMode)
     }
 
-    console.log(localColorMode ?? (prefersDarkMode ? "dark" : "light"))
+    useEffect(() => {
+        if (colorMode === "light") {
+            document.documentElement.style.backgroundColor =
+                lightTheme.palette.background.default
+        } else {
+            document.documentElement.style.backgroundColor =
+                darkTheme.palette.background.default
+        }
+    }, [colorMode])
+
+    console.log(darkTheme.palette.background.paper)
+    console.log(darkTheme.palette.background.default)
 
     return (
         <ColorModeContext.Provider
