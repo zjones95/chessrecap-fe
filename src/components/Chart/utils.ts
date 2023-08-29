@@ -60,7 +60,7 @@ export const getDefaultChartOptions = (): ChartOptions<"line"> => {
             },
             x: {
                 ticks: {
-                    callback: (value, index) => MONTH_LABELS[index][0],
+                    callback: (_, index) => MONTH_LABELS[index][0],
                 },
                 grid: {
                     // "any" is here because ScriptableContext type defs are inaccurate
