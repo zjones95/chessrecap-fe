@@ -1,7 +1,10 @@
 import { Stack, Typography } from "@mui/material"
 import { useSpring, animated } from "@react-spring/web"
+import { useParams } from "react-router-dom"
 
 const ReviewTitle = () => {
+    const { username } = useParams()
+
     const [props] = useSpring(
         () => ({
             from: { opacity: 0, transform: "translateY(50px)" },
@@ -18,8 +21,8 @@ const ReviewTitle = () => {
                     lineHeight={{ xs: "3rem", lg: "4rem" }}
                     fontSize={{ xs: "3rem", lg: "4rem" }}
                 >
-                    YOUR <span style={{ color: "#0D5E47" }}>2022</span>{" "}
-                    CHESS.COM
+                    {username ? `${username.toUpperCase()}'S` : "YOUR"}{" "}
+                    <span style={{ color: "#0D5E47" }}>2022</span> CHESS.COM
                 </Typography>
                 <Typography
                     variant="h2"
