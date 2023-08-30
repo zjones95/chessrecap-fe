@@ -26,7 +26,9 @@ const getHoursPlayedChartProps = (userReport: UserReportResponse) => {
     const hoursPlayedChartData = userReport.hoursPlayed.map(
         (hours) => hours.hoursPlayed
     )
-    const hoursPlayedChartTotal = hoursPlayedChartData.reduce((a, b) => a + b)
+    const hoursPlayedChartTotal = hoursPlayedChartData
+        .reduce((a, b) => a + b)
+        .toFixed(1)
 
     return { hoursPlayedChartData, hoursPlayedChartTotal }
 }
