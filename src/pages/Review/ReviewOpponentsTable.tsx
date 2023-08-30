@@ -71,7 +71,7 @@ const Row = ({
                         <Typography
                             key={`opponents-row-${i}-${cell.label}`}
                             flex={cell.flex}
-                            fontSize={{ xs: "1rem", lg: "3rem" }}
+                            fontSize={{ xs: "1rem", lg: "2.5rem" }}
                             px={2}
                             sx={{
                                 borderTopLeftRadius: i === 0 ? "4px" : "none",
