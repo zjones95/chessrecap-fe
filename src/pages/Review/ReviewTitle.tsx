@@ -19,7 +19,7 @@ const ReviewTitle = () => {
                 <Typography
                     variant="h2"
                     lineHeight={{ xs: "3rem", lg: "4rem" }}
-                    fontSize={{ xs: "3rem", lg: "4rem" }}
+                    fontSize={{ xs: "2rem", lg: "3rem" }}
                 >
                     {username ? `${username.toUpperCase()}'S` : "YOUR"}{" "}
                     <span style={{ color: "#0D5E47" }}>2022</span> CHESS.COM
@@ -27,10 +27,9 @@ const ReviewTitle = () => {
                 <Typography
                     variant="h2"
                     lineHeight={{ xs: "3rem", lg: "4rem" }}
-                    fontSize={{ xs: "3rem", lg: "4rem" }}
+                    fontSize={{ xs: "2.25rem", lg: "4rem" }}
                     sx={{
                         bgcolor: "#0D5E47",
-                        width: "auto",
                         borderRadius: "4px",
                         color: "common.white",
                     }}
