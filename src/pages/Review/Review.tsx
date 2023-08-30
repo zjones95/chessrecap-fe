@@ -3,7 +3,6 @@ import Processing from "@app/pages/Processing/Processing"
 import ReviewTitle from "./ReviewTitle"
 import { useColorModeProvider } from "@app/hooks/useColorModeProvider"
 import ReviewLineChart from "./ReviewLineChart"
-import { HOURS_CHART_SAMPLE_DATA, RATING_CHART_SAMPLE_DATA } from "./sampleData"
 import ReviewRatingCards from "./ReviewRatingCards"
 import ReviewGameNumbers from "./ReviewGameNumbers"
 import ReviewStreaks from "./ReviewStreaks"
@@ -11,12 +10,29 @@ import ReviewOpponentsTable from "./ReviewOpponentsTable"
 import ReviewOpeningChart from "./ReviewOpeningChart"
 import ReviewShare from "./ReviewShare"
 import { useReviewProvider } from "@app/hooks/useReviewProvider"
+import { useParams } from "react-router-dom"
+import useReviewData from "@app/hooks/useReviewData"
+import { useEffect } from "react"
 
 const Review = () => {
     const { colorMode } = useColorModeProvider()
-    const { reportProcessed } = useReviewProvider()
+    const { userReport, userReportLoading, getReport } = useReviewProvider()
+    const {
+        averageRatingChartRating,
+        averageRatingChartData,
+        hoursPlayedChartData,
+        hoursPlayedChartTotal,
+    } = useReviewData()
 
-    if (!reportProcessed) {
+    const { username: usernameParam } = useParams()
+
+    useEffect(() => {
+        if (usernameParam) {
+            getReport(usernameParam)
+        }
+    })
+
+    if (userReportLoading) {
         return <Processing />
     }
 
@@ -30,7 +46,7 @@ const Review = () => {
         >
             <ReviewTitle />
             <ReviewLineChart
-                chartData={RATING_CHART_SAMPLE_DATA}
+                chartData={averageRatingChartData}
                 chartColors={{
                     gradient:
                         colorMode === "light"
@@ -47,15 +63,15 @@ const Review = () => {
                 }}
                 label="Rating"
                 title="Average Rating in 2022"
-                titleValue={1632}
+                titleValue={averageRatingChartRating}
             />
             <ReviewRatingCards
-                bulletRating={1533}
-                blitzRating={1343}
-                rapidRating={1661}
+                bulletRating={userReport.highestRatings.highestBulletRating}
+                blitzRating={userReport.highestRatings.highestBlitzRating}
+                rapidRating={userReport.highestRatings.highestRapidRating}
             />
             <ReviewLineChart
-                chartData={HOURS_CHART_SAMPLE_DATA}
+                chartData={hoursPlayedChartData}
                 reverse
                 chartColors={{
                     gradient: {
@@ -68,7 +84,7 @@ const Review = () => {
                 label="Hours"
                 title="Hours Played in 2022"
                 titleColor="secondary.main"
-                titleValue={596}
+                titleValue={hoursPlayedChartTotal}
                 titleValueColor="text.primary"
                 sx={{
                     border: "4px solid",
@@ -76,10 +92,17 @@ const Review = () => {
                     bgcolor: "background.default",
                 }}
             />
-            <ReviewGameNumbers />
-            <ReviewStreaks longestWinStreak={11} longestLossStreak={7} />
+            <ReviewGameNumbers
+                bulletGames={userReport.totalGames.bullet}
+                blitzGames={userReport.totalGames.blitz}
+                rapidGames={userReport.totalGames.rapid}
+            />
+            <ReviewStreaks
+                longestWinStreak={userReport.streaks.longestWinStreak}
+                longestLossStreak={userReport.streaks.longestLossStreak}
+            />
             <ReviewOpponentsTable />
-            <ReviewOpeningChart />
+            <ReviewOpeningChart openingData={userReport.openings} />
             <ReviewShare />
         </Stack>
     )

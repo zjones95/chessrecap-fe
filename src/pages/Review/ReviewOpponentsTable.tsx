@@ -1,9 +1,9 @@
 import { Box, Stack, Typography, useMediaQuery } from "@mui/material"
-import { MOBILE_ROW_DATA, ROW_DATA } from "./sampleData"
 import { animated, useInView } from "@react-spring/web"
+import { useReviewProvider } from "@app/hooks/useReviewProvider"
 
 interface Cell {
-    label: string
+    label: string | number
     flex: number
     align?: string
     color?: string
@@ -112,6 +112,49 @@ const HEAD_CELLS = [
 
 const ReviewOpponentsTable = () => {
     const isMobile = useMediaQuery("(max-width: 600px)")
+    const { userReport } = useReviewProvider()
+
+    const opponentRows = userReport.mostPlayedOpponents.map((opponent, i) => {
+        return [
+            { label: `${i + 1}.`, flex: 1 },
+            { label: opponent.name, flex: 3 },
+            { label: opponent.rating, flex: 2, align: "center" },
+            { label: opponent.count, flex: 2, align: "center" },
+            {
+                label: opponent.wins,
+                flex: 1,
+                align: "center",
+                color: "secondary.main",
+            },
+            {
+                label: opponent.losses,
+                flex: 1,
+                align: "center",
+                color: "error.main",
+            },
+        ]
+    })
+
+    const mobileOpponentRows = userReport.mostPlayedOpponents.map(
+        (opponent) => {
+            return [
+                { label: opponent.name, flex: 3 },
+                { label: opponent.count, flex: 2, align: "center" },
+                {
+                    label: opponent.wins,
+                    flex: 1,
+                    align: "center",
+                    color: "secondary.main",
+                },
+                {
+                    label: opponent.losses,
+                    flex: 1,
+                    align: "center",
+                    color: "error.main",
+                },
+            ]
+        }
+    )
 
     return (
         <Stack width="100%" maxWidth={1300} px={{ xs: 3, lg: 0 }}>
@@ -129,13 +172,17 @@ const ReviewOpponentsTable = () => {
                 Most Played Opponents
             </Typography>
             <Header headCells={isMobile ? MOBILE_HEAD_CELLS : HEAD_CELLS} />
-            {(isMobile ? MOBILE_ROW_DATA : ROW_DATA).map((rowData, i) => (
-                <Row
-                    key={`opponents-row-${i}`}
-                    animationDelay={(i + 1) * 100}
-                    rowData={rowData}
-                />
-            ))}
+            <Stack spacing={1} mt={1}>
+                {(isMobile ? mobileOpponentRows : opponentRows).map(
+                    (rowData, i) => (
+                        <Row
+                            key={`opponents-row-${i}`}
+                            animationDelay={(i + 1) * 100}
+                            rowData={rowData}
+                        />
+                    )
+                )}
+            </Stack>
         </Stack>
     )
 }

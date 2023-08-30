@@ -2,22 +2,26 @@ import { Box, Stack, Tooltip, Typography } from "@mui/material"
 import { getRandomPastelColor } from "./utils"
 import { tooltipClasses } from "@mui/material/Tooltip"
 import { useInView, animated } from "@react-spring/web"
-
-interface OpeningData {
-    name: string
-    total: number
-    wins: number
-}
+import { Opening } from "@app/types"
 
 interface OpeningChartProps {
-    data: OpeningData[]
+    data: Opening[]
 }
 
-interface BarProps extends OpeningData {
+interface BarProps extends Opening {
+    heightThreshold: number
     animationDelay?: number
 }
 
-const Bar = ({ name, total, wins, animationDelay = 0 }: BarProps) => {
+const BAR_MAX_HEIGHT = 600
+
+const Bar = ({
+    name,
+    count,
+    wins,
+    heightThreshold,
+    animationDelay = 0,
+}: BarProps) => {
     const randomColor = getRandomPastelColor()
 
     const [ref, springs] = useInView(
@@ -37,6 +41,13 @@ const Bar = ({ name, total, wins, animationDelay = 0 }: BarProps) => {
         }
     )
 
+    const heightPercentage = Number((count / heightThreshold).toFixed(2))
+    const winHeightPercentage = Number(
+        ((count - wins) / heightThreshold).toFixed(2)
+    )
+    const barHeight = heightPercentage * BAR_MAX_HEIGHT
+    const winBarHeight = winHeightPercentage * BAR_MAX_HEIGHT
+
     return (
         <Box component={animated.div} ref={ref} style={springs} mt="auto">
             <Stack
@@ -46,7 +57,7 @@ const Bar = ({ name, total, wins, animationDelay = 0 }: BarProps) => {
                 justifyContent="flex-end"
                 spacing={1}
             >
-                <Typography color={randomColor}>{total}</Typography>
+                <Typography color={randomColor}>{count}</Typography>
                 <Tooltip
                     followCursor={true}
                     color={randomColor}
@@ -71,8 +82,11 @@ const Bar = ({ name, total, wins, animationDelay = 0 }: BarProps) => {
                     title={
                         <Stack>
                             <Typography color={randomColor}>{name}</Typography>
+                            <Typography color="common.white" fontSize="0.75rem">
+                                {wins} wins - {count - wins} losses
+                            </Typography>
                             <Typography color="common.white">
-                                {Math.floor((wins / total) * 100)}% win rate
+                                {Math.floor((wins / count) * 100)}% win rate
                             </Typography>
                         </Stack>
                     }
@@ -80,7 +94,8 @@ const Bar = ({ name, total, wins, animationDelay = 0 }: BarProps) => {
                     <Stack
                         sx={{
                             width: { xs: 40, lg: 80 },
-                            height: total * 15,
+                            height: barHeight,
+                            maxHeight: BAR_MAX_HEIGHT,
                             "&:hover": {
                                 "& :nth-of-type(1)": {
                                     boxShadow: "none",
@@ -95,7 +110,8 @@ const Bar = ({ name, total, wins, animationDelay = 0 }: BarProps) => {
                         <Box
                             sx={{
                                 width: { xs: 40, lg: 80 },
-                                height: total * 15,
+                                height: barHeight,
+                                maxHeight: BAR_MAX_HEIGHT,
                                 bgcolor: randomColor,
                                 borderRadius: 1,
                                 boxShadow:
@@ -107,7 +123,8 @@ const Bar = ({ name, total, wins, animationDelay = 0 }: BarProps) => {
                             position="absolute"
                             sx={{
                                 width: { xs: 40, lg: 80 },
-                                height: (total - wins) * 15,
+                                height: winBarHeight,
+                                maxHeight: BAR_MAX_HEIGHT,
                                 bgcolor: randomColor,
                                 borderRadius: 1,
                                 borderBottomLeftRadius: 0,
@@ -123,7 +140,7 @@ const Bar = ({ name, total, wins, animationDelay = 0 }: BarProps) => {
 }
 
 const OpeningChart = ({ data }: OpeningChartProps) => {
-    const sortedData = data.sort((a, b) => b.total - a.total)
+    const sortedData = data.sort((a, b) => b.count - a.count)
 
     return (
         <Stack
@@ -131,7 +148,7 @@ const OpeningChart = ({ data }: OpeningChartProps) => {
             spacing={4}
             sx={{
                 "& > div": {
-                    display: { xs: "none", lg: "flex" },
+                    display: { xs: "none", md: "flex" },
                 },
                 "& :nth-of-type(-n+5)": {
                     display: "flex",
@@ -143,6 +160,7 @@ const OpeningChart = ({ data }: OpeningChartProps) => {
                     <Bar
                         key={`opening-${openingData.name}`}
                         animationDelay={(i + 1) * 150}
+                        heightThreshold={sortedData[0].count}
                         {...openingData}
                     />
                 )

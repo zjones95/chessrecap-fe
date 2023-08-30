@@ -1,66 +1,62 @@
-import { Box, LinearProgress, Paper, Stack, Typography } from "@mui/material"
-import { IconCalendarDown, IconSettingsFilled } from "@tabler/icons-react"
-import { ProcessingState } from "@app/contexts/ReviewContext"
-import { useReviewProvider } from "@app/hooks/useReviewProvider"
+import { Paper, Stack, Typography } from "@mui/material"
+import { IconSettingsFilled } from "@tabler/icons-react"
 
-const monthNames = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "July",
-    "Aug",
-    "Sept",
-    "Oct",
-    "Nov",
-    "Dec",
-]
+// const monthNames = [
+//     "Jan",
+//     "Feb",
+//     "Mar",
+//     "Apr",
+//     "May",
+//     "Jun",
+//     "July",
+//     "Aug",
+//     "Sept",
+//     "Oct",
+//     "Nov",
+//     "Dec",
+// ]
 
-const getProgressValue = (months: ProcessingState[]) => {
-    const completedMonths = months.filter(
-        (processingState) => processingState.status !== "unprocessed"
-    ).length
+// const getProgressValue = (months: ProcessingState[]) => {
+//     const completedMonths = months.filter(
+//         (processingState) => processingState.status !== "unprocessed"
+//     ).length
 
-    return (completedMonths / months.length) * 100
-}
+//     return (completedMonths / months.length) * 100
+// }
 
-const getProcessingStateColor = (processingState: ProcessingState) => {
-    switch (processingState.status) {
-        case "complete":
-            return "secondary.main"
-        case "processing":
-            return "info.main"
-        case "error":
-            return "error.main"
-        case "unprocessed":
-            return "grey.600"
-    }
-}
+// const getProcessingStateColor = (processingState: ProcessingState) => {
+//     switch (processingState.status) {
+//         case "complete":
+//             return "secondary.main"
+//         case "processing":
+//             return "info.main"
+//         case "error":
+//             return "error.main"
+//         case "unprocessed":
+//             return "grey.600"
+//     }
+// }
 
-const Month = (processingState: ProcessingState) => {
-    return (
-        <Stack
-            alignItems="center"
-            spacing={1}
-            sx={{ color: getProcessingStateColor(processingState) }}
-        >
-            <IconCalendarDown size={40} />
-            <Typography
-                variant="body1"
-                color={getProcessingStateColor(processingState)}
-                fontSize="1.5rem"
-            >
-                {monthNames[processingState.month]}
-            </Typography>
-        </Stack>
-    )
-}
+// const Month = (processingState: ProcessingState) => {
+//     return (
+//         <Stack
+//             alignItems="center"
+//             spacing={1}
+//             sx={{ color: getProcessingStateColor(processingState) }}
+//         >
+//             <IconCalendarDown size={40} />
+//             <Typography
+//                 variant="body1"
+//                 color={getProcessingStateColor(processingState)}
+//                 fontSize="1.5rem"
+//             >
+//                 {monthNames[processingState.month]}
+//             </Typography>
+//         </Stack>
+//     )
+// }
 
 const Processing = () => {
-    const { months } = useReviewProvider()
-
     return (
         <Paper elevation={4} sx={{ margin: "auto" }}>
             <Stack
@@ -95,7 +91,7 @@ const Processing = () => {
                         <IconSettingsFilled size={56} />
                     </Stack>
                 </Stack>
-                <Stack
+                {/* <Stack
                     direction="row"
                     spacing={5}
                     display={{ xs: "none", lg: "flex" }}
@@ -114,7 +110,7 @@ const Processing = () => {
                         value={getProgressValue(months)}
                         sx={{ height: "8px", borderRadius: "8px" }}
                     />
-                </Box>
+                </Box> */}
             </Stack>
         </Paper>
     )

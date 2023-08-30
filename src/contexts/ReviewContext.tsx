@@ -1,4 +1,7 @@
-import { ReactNode, createContext, useEffect, useState } from "react"
+import { getUserReport } from "@app/api"
+import { UserReportResponse } from "@app/types"
+import { useQuery } from "@tanstack/react-query"
+import { ReactNode, createContext, useState } from "react"
 
 export type MonthStatus = "processing" | "complete" | "error" | "unprocessed"
 
@@ -10,6 +13,55 @@ export interface ProcessingState {
 interface ReviewValues {
     months: ProcessingState[]
     reportProcessed: boolean
+    username: string
+    getReport: (username: string) => void
+    userReport: UserReportResponse
+    userReportLoading: boolean
+}
+
+const DEFAULT_USER_REPORT: UserReportResponse = {
+    averageRatings: [
+        {
+            month: 0,
+            averageRating: 0,
+        },
+    ],
+    highestRatings: {
+        highestBulletRating: 0,
+        highestBlitzRating: 0,
+        highestRapidRating: 0,
+    },
+    hoursPlayed: [
+        {
+            month: 0,
+            hoursPlayed: 0,
+        },
+    ],
+    totalGames: {
+        bullet: 0,
+        blitz: 0,
+        rapid: 0,
+    },
+    openings: [
+        {
+            name: "",
+            count: 0,
+            wins: 0,
+        },
+    ],
+    streaks: {
+        longestWinStreak: 0,
+        longestLossStreak: 0,
+    },
+    mostPlayedOpponents: [
+        {
+            name: "",
+            count: 0,
+            rating: 0,
+            wins: 0,
+            losses: 0,
+        },
+    ],
 }
 
 const DEFAULT_REVIEW_VALUES: ReviewValues = {
@@ -17,54 +69,46 @@ const DEFAULT_REVIEW_VALUES: ReviewValues = {
         month: i,
         status: "unprocessed",
     })),
-    reportProcessed: false,
+    reportProcessed: true,
+    username: "",
+    getReport: () => {},
+    userReport: DEFAULT_USER_REPORT,
+    userReportLoading: true,
 }
 
 export const ReviewContext = createContext(DEFAULT_REVIEW_VALUES)
 
 export const ReviewProvider = ({ children }: { children: ReactNode }) => {
-    const [months, setMonths] = useState<ProcessingState[]>(
-        DEFAULT_REVIEW_VALUES.months
-    )
-    const [reportProcessed, setReportProcessed] = useState<boolean>(
+    const [username, setUsername] = useState<string>("")
+    const [months] = useState<ProcessingState[]>(DEFAULT_REVIEW_VALUES.months)
+    const [reportProcessed] = useState<boolean>(
         DEFAULT_REVIEW_VALUES.reportProcessed
     )
 
-    const monthsProcessed = months.filter(
-        (month) => month.status !== "unprocessed"
-    ).length
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            if (monthsProcessed < 12) {
-                setMonths((prev) => {
-                    const newMonths = [...prev]
-                    newMonths[monthsProcessed] = {
-                        month: monthsProcessed,
-                        status: "complete",
-                    }
-
-                    return newMonths
-                })
-            }
-        }, 100)
-
-        if (monthsProcessed === 12) {
-            setTimeout(() => {
-                setReportProcessed(true)
-            }, 500)
-
-            clearInterval(interval)
+    const userReportQuery = useQuery(
+        ["userReport", username],
+        () => getUserReport(username, 2022),
+        {
+            enabled: Boolean(username) && typeof username === "string",
+            refetchOnWindowFocus: false,
         }
+    )
 
-        return () => clearInterval(interval)
-    }, [monthsProcessed])
+    const getReport = (newUsername: string) => {
+        if (newUsername && username !== newUsername) {
+            setUsername(newUsername)
+        }
+    }
 
     return (
         <ReviewContext.Provider
             value={{
                 months,
                 reportProcessed,
+                username,
+                getReport,
+                userReport: userReportQuery.data ?? DEFAULT_USER_REPORT,
+                userReportLoading: userReportQuery.isLoading,
             }}
         >
             {children}

@@ -38,7 +38,17 @@ const GAME_NUMBER_TRANSITIONS = {
     },
 }
 
-const ReviewGameNumbers = () => {
+interface ReviewGameNumbersProps {
+    bulletGames: number
+    blitzGames: number
+    rapidGames: number
+}
+
+const ReviewGameNumbers = ({
+    bulletGames,
+    blitzGames,
+    rapidGames,
+}: ReviewGameNumbersProps) => {
     const [bulletRef, bulletSprings] = useInView(
         () => ({
             from: {
@@ -99,13 +109,13 @@ const ReviewGameNumbers = () => {
                     ref={bulletRef}
                     style={{ marginRight: "auto", ...bulletSprings }}
                 >
-                    <GameNumber number={211} timeControl="bullet" />
+                    <GameNumber number={bulletGames} timeControl="bullet" />
                 </animated.div>
                 <animated.div
                     ref={blitzRef}
                     style={{ margin: "auto", ...blitzSprings }}
                 >
-                    <GameNumber number={134} timeControl="blitz" />
+                    <GameNumber number={blitzGames} timeControl="blitz" />
                 </animated.div>
                 <animated.div
                     ref={rapidRef}
@@ -114,7 +124,7 @@ const ReviewGameNumbers = () => {
                         ...rapidSprings,
                     }}
                 >
-                    <GameNumber number={72} timeControl="rapid" />
+                    <GameNumber number={rapidGames} timeControl="rapid" />
                 </animated.div>
             </Stack>
         </Stack>

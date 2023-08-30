@@ -1,19 +1,8 @@
 import { Stack, Typography } from "@mui/material"
 import OpeningChart from "@app/components/Chart/OpeningChart"
+import { Opening } from "@app/types"
 
-const SAMPLE_DATA = [
-    { name: "Vienna Gambit", total: 10, wins: 5 },
-    { name: "Queen's Gambit", total: 32, wins: 19 },
-    { name: "King's Gambit", total: 12, wins: 7 },
-    { name: "Sicilian Defense", total: 15, wins: 8 },
-    { name: "Ruy Lopez", total: 20, wins: 10 },
-    { name: "French Defense", total: 5, wins: 2 },
-    { name: "Caro-Kann Defense", total: 7, wins: 4 },
-    { name: "English Opening", total: 3, wins: 1 },
-    { name: "King's Indian Defense", total: 2, wins: 1 },
-]
-
-const ReviewOpeningChart = () => {
+const ReviewOpeningChart = ({ openingData }: { openingData: Opening[] }) => {
     return (
         <Stack
             width="100%"
@@ -35,7 +24,7 @@ const ReviewOpeningChart = () => {
                 <Typography variant="h2" fontSize="3rem" color="common.white">
                     Openings
                 </Typography>
-                <OpeningChart data={SAMPLE_DATA} />
+                <OpeningChart data={openingData} />
             </Stack>
         </Stack>
     )

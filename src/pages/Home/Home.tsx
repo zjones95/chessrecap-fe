@@ -5,18 +5,18 @@ import { ROUTES } from "@app/routes"
 import { TitleText } from "@app/components/TitleText"
 
 const Home = () => {
-    const [username, setUsername] = useState("")
+    const [usernameInput, setUsernameInput] = useState("")
 
     const navigate = useNavigate()
 
     const handleStartReview = (event: SyntheticEvent) => {
         event.preventDefault()
-        navigate(ROUTES.reviewByUsername(username))
+        navigate(ROUTES.reviewByUsername(usernameInput))
     }
 
     const handleUserNameChange = (event: SyntheticEvent) => {
         event.preventDefault()
-        setUsername((event.target as HTMLInputElement).value)
+        setUsernameInput((event.target as HTMLInputElement).value)
     }
 
     return (
@@ -50,13 +50,13 @@ const Home = () => {
                             variant="outlined"
                             sx={{ width: "100%" }}
                             placeholder="Chess.com username...."
-                            value={username}
+                            value={usernameInput}
                             onChange={handleUserNameChange}
                         />
                         <Button
                             variant="contained"
                             sx={{ minWidth: "140px" }}
-                            disabled={!username}
+                            disabled={!usernameInput}
                             type="submit"
                         >
                             Let's Go!
