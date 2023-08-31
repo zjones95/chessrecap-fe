@@ -66,9 +66,9 @@ const Review = () => {
                 titleValue={averageRatingChartRating}
             />
             <ReviewRatingCards
-                bulletRating={userReport.highestRatings.highestBulletRating}
-                blitzRating={userReport.highestRatings.highestBlitzRating}
-                rapidRating={userReport.highestRatings.highestRapidRating}
+                bulletRating={userReport.highestRatings.bullet}
+                blitzRating={userReport.highestRatings.blitz}
+                rapidRating={userReport.highestRatings.rapid}
             />
             <ReviewLineChart
                 chartData={hoursPlayedChartData}

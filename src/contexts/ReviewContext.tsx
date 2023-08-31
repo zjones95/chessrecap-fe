@@ -27,9 +27,9 @@ const DEFAULT_USER_REPORT: UserReportResponse = {
         },
     ],
     highestRatings: {
-        highestBulletRating: 0,
-        highestBlitzRating: 0,
-        highestRapidRating: 0,
+        bullet: 0,
+        blitz: 0,
+        rapid: 0,
     },
     hoursPlayed: [
         {
@@ -53,13 +53,12 @@ const DEFAULT_USER_REPORT: UserReportResponse = {
         longestWinStreak: 0,
         longestLossStreak: 0,
     },
-    mostPlayedOpponents: [
+    opponents: [
         {
             name: "",
             count: 0,
             rating: 0,
             wins: 0,
-            losses: 0,
         },
     ],
 }

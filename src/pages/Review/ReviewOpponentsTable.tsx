@@ -114,7 +114,7 @@ const ReviewOpponentsTable = () => {
     const isMobile = useMediaQuery("(max-width: 600px)")
     const { userReport } = useReviewProvider()
 
-    const opponentRows = userReport.mostPlayedOpponents.map((opponent, i) => {
+    const opponentRows = userReport.opponents.map((opponent, i) => {
         return [
             { label: `${i + 1}.`, flex: 1 },
             { label: opponent.name, flex: 3 },
@@ -127,7 +127,7 @@ const ReviewOpponentsTable = () => {
                 color: "secondary.main",
             },
             {
-                label: opponent.losses,
+                label: opponent.count - opponent.wins,
                 flex: 1,
                 align: "center",
                 color: "error.main",
@@ -135,26 +135,24 @@ const ReviewOpponentsTable = () => {
         ]
     })
 
-    const mobileOpponentRows = userReport.mostPlayedOpponents.map(
-        (opponent) => {
-            return [
-                { label: opponent.name, flex: 3 },
-                { label: opponent.count, flex: 2, align: "center" },
-                {
-                    label: opponent.wins,
-                    flex: 1,
-                    align: "center",
-                    color: "secondary.main",
-                },
-                {
-                    label: opponent.losses,
-                    flex: 1,
-                    align: "center",
-                    color: "error.main",
-                },
-            ]
-        }
-    )
+    const mobileOpponentRows = userReport.opponents.map((opponent) => {
+        return [
+            { label: opponent.name, flex: 3 },
+            { label: opponent.count, flex: 2, align: "center" },
+            {
+                label: opponent.wins,
+                flex: 1,
+                align: "center",
+                color: "secondary.main",
+            },
+            {
+                label: opponent.count - opponent.wins,
+                flex: 1,
+                align: "center",
+                color: "error.main",
+            },
+        ]
+    })
 
     return (
         <Stack width="100%" maxWidth={1300} px={{ xs: 3, lg: 0 }}>

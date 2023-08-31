@@ -6,9 +6,9 @@ export interface AverageRating {
 }
 
 export interface HighestRatings {
-    highestBulletRating: number
-    highestBlitzRating: number
-    highestRapidRating: number
+    bullet: number
+    blitz: number
+    rapid: number
 }
 
 export interface HoursPlayed {
@@ -28,7 +28,6 @@ export interface Opening extends CountItem {
 export interface Opponent extends CountItem {
     rating: number
     wins: number
-    losses: number
 }
 
 export interface Streaks {
@@ -49,5 +48,5 @@ export interface UserReportResponse {
     totalGames: TotalGames
     openings: Opening[]
     streaks: Streaks
-    mostPlayedOpponents: Opponent[]
+    opponents: Opponent[]
 }
