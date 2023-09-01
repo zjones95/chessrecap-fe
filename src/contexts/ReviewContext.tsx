@@ -53,6 +53,7 @@ export const ReviewProvider = ({ children }: { children: ReactNode }) => {
     )
 
     useEffect(() => {
+        console.log(userReportQuery.isError)
         if (userReportQuery.isError) {
             setUsername("")
             navigate(`${ROUTES.HOME}?error=404`)
@@ -64,6 +65,8 @@ export const ReviewProvider = ({ children }: { children: ReactNode }) => {
             setUsername(newUsername)
         }
     }
+
+    console.log(userReportQuery)
 
     return (
         <ReviewContext.Provider

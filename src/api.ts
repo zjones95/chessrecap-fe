@@ -42,17 +42,12 @@ export const DEFAULT_USER_REPORT: UserReportResponse = {
 }
 
 export const getUserReport = async (username: string, year: number) => {
-    try {
-        const response = await axios.get(
-            `${import.meta.env.VITE_BACKEND_API}/stats/${username}/${year}`,
-            { timeout: 45000 }
-        )
+    const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_API}/stats/${username}/${year}`,
+        { timeout: 45000 }
+    )
 
-        return response.data
-    } catch (err) {
-        console.log(err)
-        return DEFAULT_USER_REPORT
-    }
+    return response.data
 }
 
 export const getUserExists = async (username: string) => {
