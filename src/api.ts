@@ -1,3 +1,4 @@
+import axios from "axios"
 import { UserReportResponse } from "./types"
 
 export const DEFAULT_USER_REPORT: UserReportResponse = {
@@ -42,12 +43,12 @@ export const DEFAULT_USER_REPORT: UserReportResponse = {
 
 export const getUserReport = async (username: string, year: number) => {
     try {
-        const response = await fetch(
+        const response = await axios.get(
             `${import.meta.env.VITE_BACKEND_API}/stats/${username}/${year}`,
-            { mode: "cors" }
+            { timeout: 45000 }
         )
 
-        return response.json()
+        return response.data
     } catch (err) {
         console.log(err)
         return DEFAULT_USER_REPORT
