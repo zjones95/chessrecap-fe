@@ -41,10 +41,17 @@ export const DEFAULT_USER_REPORT: UserReportResponse = {
 }
 
 export const getUserReport = async (username: string, year: number) => {
-    const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_API}/stats/${username}/${year}`
-    )
-    return res.json()
+    try {
+        const response = await fetch(
+            `${import.meta.env.VITE_BACKEND_API}/stats/${username}/${year}`,
+            { mode: "cors" }
+        )
+
+        return response.json()
+    } catch (err) {
+        console.log(err)
+        return DEFAULT_USER_REPORT
+    }
 }
 
 export const getUserExists = async (username: string) => {
