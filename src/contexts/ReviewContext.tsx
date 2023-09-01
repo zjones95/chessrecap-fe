@@ -1,6 +1,6 @@
 import { DEFAULT_USER_REPORT, getUserReport } from "@app/api"
 import { ROUTES } from "@app/routes"
-import { ApiError, UserReportResponse } from "@app/types"
+import { UserReportResponse } from "@app/types"
 import { useQuery } from "@tanstack/react-query"
 import { ReactNode, createContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
