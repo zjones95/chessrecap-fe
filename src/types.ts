@@ -50,3 +50,8 @@ export interface UserReportResponse {
     streaks: Streaks
     opponents: Opponent[]
 }
+
+export interface ApiError {
+    message?: string
+    status?: number
+}

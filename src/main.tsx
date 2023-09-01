@@ -10,14 +10,14 @@ const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
-        <QueryClientProvider client={queryClient}>
-            <ColorModeProvider>
-                <ReviewProvider>
-                    <BrowserRouter>
+        <BrowserRouter>
+            <QueryClientProvider client={queryClient}>
+                <ColorModeProvider>
+                    <ReviewProvider>
                         <App />
-                    </BrowserRouter>
-                </ReviewProvider>
-            </ColorModeProvider>
-        </QueryClientProvider>
+                    </ReviewProvider>
+                </ColorModeProvider>
+            </QueryClientProvider>
+        </BrowserRouter>
     </React.StrictMode>
 )

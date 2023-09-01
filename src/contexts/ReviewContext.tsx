@@ -1,7 +1,9 @@
-import { getUserReport } from "@app/api"
-import { UserReportResponse } from "@app/types"
+import { DEFAULT_USER_REPORT, getUserReport } from "@app/api"
+import { ROUTES } from "@app/routes"
+import { ApiError, UserReportResponse } from "@app/types"
 import { useQuery } from "@tanstack/react-query"
-import { ReactNode, createContext, useState } from "react"
+import { ReactNode, createContext, useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export type MonthStatus = "processing" | "complete" | "error" | "unprocessed"
 
@@ -17,50 +19,6 @@ interface ReviewValues {
     getReport: (username: string) => void
     userReport: UserReportResponse
     userReportLoading: boolean
-}
-
-const DEFAULT_USER_REPORT: UserReportResponse = {
-    averageRatings: [
-        {
-            month: 0,
-            averageRating: 0,
-        },
-    ],
-    highestRatings: {
-        bullet: 0,
-        blitz: 0,
-        rapid: 0,
-    },
-    hoursPlayed: [
-        {
-            month: 0,
-            hoursPlayed: 0,
-        },
-    ],
-    totalGames: {
-        bullet: 0,
-        blitz: 0,
-        rapid: 0,
-    },
-    openings: [
-        {
-            name: "",
-            count: 0,
-            wins: 0,
-        },
-    ],
-    streaks: {
-        longestWinStreak: 0,
-        longestLossStreak: 0,
-    },
-    opponents: [
-        {
-            name: "",
-            count: 0,
-            rating: 0,
-            wins: 0,
-        },
-    ],
 }
 
 const DEFAULT_REVIEW_VALUES: ReviewValues = {
@@ -83,6 +41,7 @@ export const ReviewProvider = ({ children }: { children: ReactNode }) => {
     const [reportProcessed] = useState<boolean>(
         DEFAULT_REVIEW_VALUES.reportProcessed
     )
+    const navigate = useNavigate()
 
     const userReportQuery = useQuery(
         ["userReport", username],
@@ -92,6 +51,13 @@ export const ReviewProvider = ({ children }: { children: ReactNode }) => {
             refetchOnWindowFocus: false,
         }
     )
+
+    useEffect(() => {
+        if ((userReportQuery.error as ApiError)?.status === 404) {
+            setUsername("")
+            navigate(`${ROUTES.HOME}?error=404`)
+        }
+    }, [userReportQuery.error, navigate])
 
     const getReport = (newUsername: string) => {
         if (newUsername && username !== newUsername) {

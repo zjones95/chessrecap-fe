@@ -103,7 +103,7 @@ const ReviewGameNumbers = ({
                     mb={2}
                     color="common.white"
                 >
-                    You Played
+                    Games Played
                 </Typography>
                 <animated.div
                     ref={bulletRef}

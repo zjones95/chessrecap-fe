@@ -1,13 +1,24 @@
-import { Button, Stack, TextField, Typography } from "@mui/material"
+import {
+    Alert,
+    Box,
+    Button,
+    Snackbar,
+    Stack,
+    TextField,
+    Typography,
+} from "@mui/material"
 import { SyntheticEvent, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate, useSearchParams } from "react-router-dom"
 import { ROUTES } from "@app/routes"
 import { TitleText } from "@app/components/TitleText"
 
 const Home = () => {
-    const [usernameInput, setUsernameInput] = useState("")
-
     const navigate = useNavigate()
+    const [queryParams] = useSearchParams()
+    const errorParam = queryParams.get("error")
+
+    const [usernameInput, setUsernameInput] = useState("")
+    const [apiError, setApiError] = useState(Boolean(errorParam))
 
     const handleStartReview = (event: SyntheticEvent) => {
         event.preventDefault()
@@ -21,6 +32,15 @@ const Home = () => {
 
     return (
         <Stack alignItems="center" justifyContent="center" margin="auto" p={1}>
+            <Snackbar
+                open={apiError}
+                autoHideDuration={6000}
+                onClose={() => setApiError(false)}
+            >
+                <Alert severity="error">
+                    User does not exist or Chess.com API is down
+                </Alert>
+            </Snackbar>
             <Stack spacing={3} pb={4}>
                 <Stack
                     direction="row"
@@ -30,14 +50,25 @@ const Home = () => {
                     <TitleText>Chess</TitleText>
                     <TitleText animationDelay={300}>Recap</TitleText>
                 </Stack>
-                <Typography
-                    variant="body1"
-                    px={2}
-                    fontSize={{ xs: "1rem", lg: "1.25rem" }}
-                >
-                    Get your chess year-in-review and see how good (or bad) you
-                    did...
-                </Typography>
+                <Stack spacing={0.5}>
+                    <Typography
+                        variant="body1"
+                        px={2}
+                        fontSize={{ xs: "0.875rem", lg: "1rem" }}
+                    >
+                        Get your chess year-in-review and see how good (or bad)
+                        you did, or{" "}
+                        <Link
+                            to={ROUTES.reviewByUsername("gothamchess")}
+                            style={{ textDecoration: "none" }}
+                        >
+                            <Box component="span" color="secondary.main">
+                                view a sample report...
+                            </Box>
+                        </Link>
+                    </Typography>
+                </Stack>
+
                 <form onSubmit={handleStartReview}>
                     <Stack
                         direction={{ xs: "column", md: "row" }}
