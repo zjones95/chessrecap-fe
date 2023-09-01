@@ -41,12 +41,16 @@ export const DEFAULT_USER_REPORT: UserReportResponse = {
     ],
 }
 
-axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*"
-
 export const getUserReport = async (username: string, year: number) => {
     const { data } = await axios.get(
         `${import.meta.env.VITE_BACKEND_API}/stats/${username}/${year}`,
-        { timeout: 45000 }
+        {
+            timeout: 45000,
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json",
+            },
+        }
     )
 
     return data
