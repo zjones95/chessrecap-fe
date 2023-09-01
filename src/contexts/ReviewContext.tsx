@@ -53,11 +53,11 @@ export const ReviewProvider = ({ children }: { children: ReactNode }) => {
     )
 
     useEffect(() => {
-        if ((userReportQuery.error as ApiError)?.status === 404) {
+        if (userReportQuery.isError) {
             setUsername("")
             navigate(`${ROUTES.HOME}?error=404`)
         }
-    }, [userReportQuery.error, navigate])
+    }, [userReportQuery.isError, navigate])
 
     const getReport = (newUsername: string) => {
         if (newUsername && username !== newUsername) {
