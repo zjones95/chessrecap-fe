@@ -1,4 +1,3 @@
-import axios from "axios"
 import { UserReportResponse } from "./types"
 
 export const DEFAULT_USER_REPORT: UserReportResponse = {
@@ -42,18 +41,10 @@ export const DEFAULT_USER_REPORT: UserReportResponse = {
 }
 
 export const getUserReport = async (username: string, year: number) => {
-    const { data } = await axios.get(
-        `${import.meta.env.VITE_BACKEND_API}/stats/${username}/${year}`,
-        {
-            timeout: 45000,
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Content-Type": "application/json",
-            },
-        }
+    const res = await fetch(
+        `${import.meta.env.VITE_BACKEND_API}/stats/${username}/${year}`
     )
-
-    return data
+    return res.json()
 }
 
 export const getUserExists = async (username: string) => {
