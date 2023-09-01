@@ -53,7 +53,6 @@ export const getUserReport = async (username: string, year: number) => {
         return (await response.json()) as Promise<UserReportResponse>
     } catch (err) {
         console.log(err)
-        return DEFAULT_USER_REPORT
     }
 }
 
