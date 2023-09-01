@@ -1,23 +1,20 @@
+import axios from "axios"
 import { UserReportResponse } from "./types"
 
 export const DEFAULT_USER_REPORT: UserReportResponse = {
-    averageRatings: [
-        {
-            month: 0,
-            averageRating: 0,
-        },
-    ],
+    averageRatings: Array.from(Array(12)).map((_, i) => ({
+        month: i,
+        averageRating: 0,
+    })),
     highestRatings: {
         bullet: 0,
         blitz: 0,
         rapid: 0,
     },
-    hoursPlayed: [
-        {
-            month: 0,
-            hoursPlayed: 0,
-        },
-    ],
+    hoursPlayed: Array.from(Array(12)).map((_, i) => ({
+        month: i,
+        hoursPlayed: 0,
+    })),
     totalGames: {
         bullet: 0,
         blitz: 0,
@@ -45,15 +42,12 @@ export const DEFAULT_USER_REPORT: UserReportResponse = {
 }
 
 export const getUserReport = async (username: string, year: number) => {
-    try {
-        const response = await fetch(
-            `${import.meta.env.VITE_BACKEND_API}/stats/${username}/${year}`,
-            { mode: "cors" }
-        )
-        return (await response.json()) as Promise<UserReportResponse>
-    } catch (err) {
-        console.log(err)
-    }
+    const { data } = await axios.get(
+        `${import.meta.env.VITE_BACKEND_API}/stats/${username}/${year}`,
+        { timeout: 45000 }
+    )
+
+    return data
 }
 
 export const getUserExists = async (username: string) => {
