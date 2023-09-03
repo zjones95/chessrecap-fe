@@ -1,14 +1,6 @@
 import { UserReportResponse } from "@app/types"
-import { useReviewProvider } from "./useReviewProvider"
 
-const DEFAULT_REVIEW_DATA = {
-    averageRatingChartRating: 0,
-    averageRatingChartData: [],
-    hoursPlayedChartTotal: 0,
-    hoursPlayedChartData: [],
-}
-
-const getAverageRatingChartProps = (userReport: UserReportResponse) => {
+export const getAverageRatingChartProps = (userReport: UserReportResponse) => {
     const averageRatingChartRating = Math.floor(
         userReport.averageRatings
             .map((rating) => rating.averageRating)
@@ -22,7 +14,7 @@ const getAverageRatingChartProps = (userReport: UserReportResponse) => {
     return { averageRatingChartRating, averageRatingChartData }
 }
 
-const getHoursPlayedChartProps = (userReport: UserReportResponse) => {
+export const getHoursPlayedChartProps = (userReport: UserReportResponse) => {
     const hoursPlayedChartData = userReport.hoursPlayed.map(
         (hours) => hours.hoursPlayed
     )
@@ -32,16 +24,3 @@ const getHoursPlayedChartProps = (userReport: UserReportResponse) => {
 
     return { hoursPlayedChartData, hoursPlayedChartTotal }
 }
-
-const useReviewData = () => {
-    const { userReport, userReportLoading } = useReviewProvider()
-
-    return userReportLoading
-        ? DEFAULT_REVIEW_DATA
-        : {
-              ...getAverageRatingChartProps(userReport),
-              ...getHoursPlayedChartProps(userReport),
-          }
-}
-
-export default useReviewData

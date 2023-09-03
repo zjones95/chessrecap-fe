@@ -11,18 +11,19 @@ import ReviewOpeningChart from "./ReviewOpeningChart"
 import ReviewShare from "./ReviewShare"
 import { useReviewProvider } from "@app/hooks/useReviewProvider"
 import { useParams } from "react-router-dom"
-import useReviewData from "@app/hooks/useReviewData"
 import { useEffect } from "react"
 
 const Review = () => {
     const { colorMode } = useColorModeProvider()
-    const { userReport, userReportLoading, getReport } = useReviewProvider()
     const {
+        userReport,
+        userReportLoading,
+        getReport,
         averageRatingChartRating,
         averageRatingChartData,
         hoursPlayedChartData,
         hoursPlayedChartTotal,
-    } = useReviewData()
+    } = useReviewProvider()
 
     const { username: usernameParam } = useParams()
 
