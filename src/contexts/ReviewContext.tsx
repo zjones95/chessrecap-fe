@@ -49,6 +49,7 @@ export const ReviewProvider = ({ children }: { children: ReactNode }) => {
         {
             enabled: Boolean(username) && typeof username === "string",
             refetchOnWindowFocus: false,
+            retry: false,
         }
     )
 
